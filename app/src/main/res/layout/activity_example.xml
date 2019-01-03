@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <Button
+        android:id="@+id/btn_single"
+        android:text="单一布局"
+        android:layout_marginTop="16dp"
+        android:layout_width="168dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_mul"
+        android:layout_marginTop="16dp"
+        android:text="多布局"
+        android:layout_width="168dp"
+        android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>

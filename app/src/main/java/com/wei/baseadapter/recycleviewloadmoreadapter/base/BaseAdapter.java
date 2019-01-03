@@ -54,7 +54,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
 
     private boolean isLoading;//是否正在加载更多
 
-    private boolean showHeaderView = false;//是否显示HeaderView
+    private boolean showHeaderView = true;//是否显示HeaderView
 
     protected abstract int getViewType(int position, T data);
 
@@ -142,8 +142,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         if (isFooterView(position)) {
             return TYPE_FOOTER_VIEW;
         }
-
-
         return getViewType(position - getHeaderCount(), mDatas.get(position - getHeaderCount()));
     }
 
@@ -410,12 +408,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         if (isReset) {
             return;
         }
-
-        Log.d("BaseAdapter" , "mFooterLayout.getChildAt(0) == mLoadingView" + (mFooterLayout.getChildAt(0) == mLoadingView ));
-        Log.d("BaseAdapter" , "mFooterLayout.getChildAt(0)" + mFooterLayout.getChildAt(0));
-        Log.d("BaseAdapter" , "mLoadingView" + mLoadingView);
-        Log.d("BaseAdapter" , " mFooterLayout.getChildCount()" +  mFooterLayout.getChildCount());
-
         if (mFooterLayout.getChildAt(0) == mLoadingView && !isLoading) {
             Log.d("BaseAdapter" , "in mFooterLayout scrollLoadMore");
             if (mLoadMoreListener != null) {
@@ -431,7 +423,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
      *
      * @param footerView
      */
-    private void addFooterView(View footerView) {
+    public void addFooterView(View footerView) {
         Log.d("BaseAdapter" , "in addFooterView");
         if (footerView == null) {
             return;
