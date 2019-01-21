@@ -1,4 +1,4 @@
-package com.wei.baseadapter.recycleviewloadmoreadapter;
+package com.wei.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 /**
  * Created by wei on 2018/10/25
  */
-public class ViewHolder extends RecyclerView.ViewHolder  {
+public class ViewHolder extends RecyclerView.ViewHolder {
 
     private SparseArray<View> mViews;   //缓存View
     private View mConvertView;
@@ -61,38 +61,77 @@ public class ViewHolder extends RecyclerView.ViewHolder  {
         return null;
     }
 
-    public void setText(int viewId, String text) {
+    public ViewHolder setText(int viewId, String text) {
         TextView textView = getView(viewId);
         textView.setText(text);
+        return this;
     }
 
-    public void setText(int viewId, int textId) {
+    public ViewHolder setText(int viewId, int textId) {
         TextView textView = getView(viewId);
         textView.setText(textId);
+        return this;
     }
 
-    public void setTextColor(int viewId, int colorId) {
+    public ViewHolder setTextColor(int viewId, int colorId) {
         TextView textView = getView(viewId);
         textView.setTextColor(colorId);
+        return this;
     }
 
-    public void setOnClickListener(int viewId, View.OnClickListener clickListener) {
-        View view = getView(viewId);
-        view.setOnClickListener(clickListener);
-    }
-
-    public void setBgResource(int viewId, int resId) {
+    public ViewHolder setBgResource(int viewId, int resId) {
         View view = getView(viewId);
         view.setBackgroundResource(resId);
+        return this;
     }
 
-    public void setBgColor(int viewId, int colorId) {
+    public ViewHolder setBgColor(int viewId, int colorId) {
         View view = getView(viewId);
         view.setBackgroundColor(colorId);
+        return this;
     }
 
-    public void setVisibility(int viewId, int visibility) {
+    public ViewHolder setVisibility(int viewId, boolean visiable) {
         View view = getView(viewId);
-        view.setVisibility(visibility);
+        view.setVisibility(visiable ? View.VISIBLE : View.GONE);
+        return this;
+    }
+
+    public ViewHolder setClickListener(int viewId, View.OnClickListener clickListener) {
+        View view = getView(viewId);
+        view.setOnClickListener(clickListener);
+        return this;
+    }
+
+    public ViewHolder setTag(int viewId, Object tag) {
+        View view = getView(viewId);
+        view.setTag(tag);
+        return this;
+    }
+
+    public ViewHolder setTag(int viewId, int key, Object tag) {
+        View view = getView(viewId);
+        view.setTag(key, tag);
+        return this;
+    }
+
+    public ViewHolder setOnClickListener(int viewId, View.OnClickListener clickListener) {
+        View view = getView(viewId);
+        view.setOnClickListener(clickListener);
+        return this;
+    }
+
+    public ViewHolder setOnTouchListener(int viewId,
+                                         View.OnTouchListener listener) {
+        View view = getView(viewId);
+        view.setOnTouchListener(listener);
+        return this;
+    }
+
+    public ViewHolder setOnLongClickListener(int viewId,
+                                             View.OnLongClickListener listener) {
+        View view = getView(viewId);
+        view.setOnLongClickListener(listener);
+        return this;
     }
 }

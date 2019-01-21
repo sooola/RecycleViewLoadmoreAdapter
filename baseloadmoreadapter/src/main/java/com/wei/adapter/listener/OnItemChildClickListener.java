@@ -1,6 +1,6 @@
-package com.wei.baseadapter.recycleviewloadmoreadapter.interfaces;
+package com.wei.adapter.listener;
 
-import com.wei.baseadapter.recycleviewloadmoreadapter.ViewHolder;
+import com.wei.adapter.ViewHolder;
 
 /**
  * Author: Othershe

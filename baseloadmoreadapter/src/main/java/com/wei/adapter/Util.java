@@ -1,4 +1,4 @@
-package com.wei.baseadapter.recycleviewloadmoreadapter;
+package com.wei.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -7,23 +7,19 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.wei.baseadapter.recycleviewloadmoreadapter.base.CommonBaseAdapter;
-import com.wei.baseadapter.recycleviewloadmoreadapter.interfaces.OnItemClickListener;
-import com.wei.baseadapter.recycleviewloadmoreadapter.interfaces.OnLoadMoreListener;
+import com.wei.adapter.ViewHolder;
+import com.wei.adapter.base.CommonBaseAdapter;
+import com.wei.adapter.listener.OnItemClickListener;
+import com.wei.adapter.listener.OnLoadMoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class SingleActivity extends AppCompatActivity {
 
     private CommonBaseAdapter mAdapter;
 
@@ -32,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isFailed = true;
 
     public static Intent getIntent(Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, SingleActivity.class);
         return intent;
     }
 
@@ -40,26 +36,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//左侧添加一个默认的返回图标
+        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleview);
 
         //初始化adapter
         mAdapter = new CommonRefreshAdapter(this, null, true);
 
-        //初始化EmptyView
-        View emptyView = LayoutInflater.from(this).inflate(R.layout.empty_layout, (ViewGroup) mRecyclerView.getParent(), false);
-        mAdapter.setEmptyView(emptyView);
-
-        //初始化 开始加载更多的loading View
-        mAdapter.setLoadingView(R.layout.load_loading_layout);
-//        //加载失败，更新footer view提示
-        mAdapter.setLoadFailedView(R.layout.load_failed_layout);
-        //加载完成，更新footer view提示
-        mAdapter.setLoadEndView(R.layout.load_end_layout);
+        mAdapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.empty_layout, (ViewGroup) mRecyclerView.getParent(), false));
         //设置加载更多触发的事件监听
         mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(boolean isReload) {
-                Log.d("MainActivity", "in load more");
                 loadMore();
             }
         });
@@ -69,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(ViewHolder viewHolder, String data, int position) {
-                Toast.makeText(MainActivity.this, data, Toast.LENGTH_SHORT).show();
+                Toast.makeText(SingleActivity.this, data, Toast.LENGTH_SHORT).show();
             }
         });
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -83,11 +71,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 List<String> data = new ArrayList<>();
-                for (int i = 0; i < 15; i++) {
+                for (int i = 0; i < 18; i++) {
                     data.add("item--" + i);
                 }
                 //刷新数据
-                mAdapter.setNewData(data);
+//                mAdapter.setNewData(data);
+                mAdapter.setData(data);
 
             }
         }, 2000);
@@ -111,40 +100,18 @@ public class MainActivity extends AppCompatActivity {
                         data.add("item--" + (mAdapter.getDataCount() + i));
                     }
                     //刷新数据
-                    mAdapter.setLoadMoreData(data);
+//                    mAdapter.setLoadMoreData(data);
+                    mAdapter.setData(data);
                 }
             }
         }, 2000);
     }
 
-    //重写onCreateOptionMenu(Menu menu)方法，当菜单第一次被加载时调用
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //填充选项菜单（读取XML文件、解析、加载到Menu组件上）
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    //重写OptionsItemSelected(MenuItem item)来响应菜单项(MenuItem)的点击事件（根据id来区分是哪个item）
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add_header:
-                Toast.makeText(this, "添加header", Toast.LENGTH_SHORT).show();
-                TextView t1 = new TextView(MainActivity.this);
-                t1.setText("我是header");
-                mAdapter.addHeaderView(t1);
-                mAdapter.notifyDataSetChanged();
-                break;
-            case R.id.add_foot:
-                Toast.makeText(this, "添加footer", Toast.LENGTH_SHORT).show();
-                TextView t2 = new TextView(MainActivity.this);
-                t2.setText("我是footer");
-                mAdapter.addFooterView(t2);
-                mAdapter.notifyDataSetChanged();
-                break;
-            default:
+            case android.R.id.home:
+                onBackPressed();
                 break;
         }
         return super.onOptionsItemSelected(item);

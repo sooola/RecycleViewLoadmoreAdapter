@@ -1,4 +1,4 @@
-package com.wei.baseadapter.recycleviewloadmoreadapter.interfaces;
+package com.wei.adapter.listener;
 
 /**
     Created by wei on 2018/10/25

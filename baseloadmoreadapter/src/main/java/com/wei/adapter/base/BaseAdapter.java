@@ -1,4 +1,4 @@
-package com.wei.baseadapter.recycleviewloadmoreadapter.base;
+package com.wei.adapter.base;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,9 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.wei.baseadapter.recycleviewloadmoreadapter.Util;
-import com.wei.baseadapter.recycleviewloadmoreadapter.ViewHolder;
-import com.wei.baseadapter.recycleviewloadmoreadapter.interfaces.OnLoadMoreListener;
+import com.wei.adapter.R;
+import com.wei.adapter.Util;
+import com.wei.adapter.ViewHolder;
+import com.wei.adapter.listener.OnLoadMoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,9 +71,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         this.isOpenLoadMore = isOpenLoadMore;
     }
 
-
-
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -102,7 +100,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         return viewHolder;
     }
 
-
     @Override
     public int getItemCount() {
         if (mDatas.isEmpty() && (mEmptyView != null || mReloadView != null)) {
@@ -120,6 +117,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public int getItemViewType(int position) {
         if (mDatas.isEmpty()) {
+            Log.d("aaaa" , "mDatas.isEmpty()");
             if (mEmptyView != null) {
                 return TYPE_EMPTY_VIEW;
             }
@@ -181,11 +179,23 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         mEmptyView = emptyView;
     }
 
+    public void setNodataView(View reloadView) {
+        mReloadView = reloadView;
+    }
+
     /**
      * 移除emptyView
      */
     public void removeEmptyView() {
         mEmptyView = null;
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 移除emptyView
+     */
+    public void removeNodataView() {
+        mReloadView = null;
         notifyDataSetChanged();
     }
 
@@ -257,6 +267,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
      * @param loadingView
      */
     public void setLoadingView(View loadingView) {
+        mLoadingView = null;
         mLoadingView = loadingView;
         addFooterView(mLoadingView);
     }
@@ -271,6 +282,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
      * @param loadFailedView
      */
     public void setLoadFailedView(View loadFailedView) {
+        mLoadFailedView = null;
         mLoadFailedView = loadFailedView;
     }
 
@@ -284,6 +296,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
      * @param loadEndView
      */
     public void setLoadEndView(View loadEndView) {
+        mLoadEndView = null;
         mLoadEndView = loadEndView;
     }
 
@@ -445,8 +458,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         mFooterLayout.removeAllViews();
     }
 
-
-
     /**
      * 重置adapter，恢复到初始状态
      */
@@ -461,17 +472,56 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public void setNewData(List<T> datas) {
-        if (isOpenLoadMore) {
-            if (isReset) {
-                isReset = false;
+        if (null != datas){
+            if (isOpenLoadMore) {
+                if (isReset) {
+                    isReset = false;
+                }
+                isLoading = false;
+                mEmptyView = null;
+                mReloadView = null;
             }
-            isLoading = false;
-            mEmptyView = null;
-            mReloadView = null;
+            mDatas.clear();
+            mDatas.addAll(datas);
+            notifyDataSetChanged();
         }
+    }
+
+    public void cleanData(){
         mDatas.clear();
-        mDatas.addAll(datas);
         notifyDataSetChanged();
+    }
+
+    public void setData(List<T> datas) {
+        if (null != datas && mDatas.size() == 0){
+            if (isOpenLoadMore) {
+                if (isReset) {
+                    isReset = false;
+                }
+                isLoading = false;
+                mEmptyView = null;
+                mReloadView = null;
+            }
+            mDatas.clear();
+            mDatas.addAll(datas);
+            notifyDataSetChanged();
+        }else if(datas != null && datas.size() != 0) {
+            isLoading = false;
+            insert(datas, mDatas.size());
+        }else if (datas == null && mDatas.size() != 0 ){
+            //没有更多数据
+            loadEnd();
+        }
+    }
+
+    /**
+     * 刷新加载更多的数据
+     *
+     * @param datas
+     */
+    public void setLoadMoreData(List<T> datas) {
+        isLoading = false;
+        insert(datas, mDatas.size());
     }
 
     /**
@@ -487,14 +537,9 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         return mDatas;
     }
 
-
-
     /**
      * 数据加载完成
      */
-
-
-
     public void loadEnd() {
         Log.d("BaseAdapter" , "in loadEnd");
         if (mLoadEndView != null) {
@@ -502,6 +547,11 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         } else {
             addFooterView(new View(mContext));
         }
+    }
+
+    public void noData(){
+        mEmptyView = null;
+        notifyDataSetChanged();
     }
 
     private int findLastVisibleItemPosition(RecyclerView.LayoutManager layoutManager) {
@@ -512,16 +562,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
             return Util.findMax(lastVisibleItemPositions);
         }
         return -1;
-    }
-
-    /**
-     * 刷新加载更多的数据
-     *
-     * @param datas
-     */
-    public void setLoadMoreData(List<T> datas) {
-        isLoading = false;
-        insert(datas, mDatas.size());
     }
 
 
@@ -549,6 +589,9 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public void setOnLoadMoreListener(OnLoadMoreListener loadMoreListener) {
+        setLoadingView(R.layout.load_loading_layout);
+        setLoadFailedView(R.layout.load_failed_layout);
+        setLoadEndView(R.layout.load_end_layout);
         mLoadMoreListener = loadMoreListener;
     }
 }

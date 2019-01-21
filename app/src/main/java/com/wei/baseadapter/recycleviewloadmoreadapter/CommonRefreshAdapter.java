@@ -1,9 +1,8 @@
 package com.wei.baseadapter.recycleviewloadmoreadapter;
 
 import android.content.Context;
-
-import com.wei.baseadapter.recycleviewloadmoreadapter.base.CommonBaseAdapter;
-
+import com.wei.adapter.ViewHolder;
+import com.wei.adapter.base.CommonBaseAdapter;
 import java.util.List;
 
 /**
@@ -12,7 +11,7 @@ import java.util.List;
 public class CommonRefreshAdapter extends CommonBaseAdapter<String> {
 
     public CommonRefreshAdapter(Context context, List<String> datas, boolean isLoadMore) {
-        super(context,isLoadMore);
+        super(context,datas,isLoadMore);
     }
 
     @Override

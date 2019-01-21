@@ -10,8 +10,6 @@ import android.view.View;
  */
 public class ExampleActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,14 +18,28 @@ public class ExampleActivity extends AppCompatActivity {
         findViewById(R.id.btn_single).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.getContext().startActivity(MainActivity.getIntent(view.getContext()));
+                view.getContext().startActivity(SingleActivity.getIntent(view.getContext()));
             }
         });
 
         findViewById(R.id.btn_mul).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MulExampleActivity.startActivity(view.getContext());
+            }
+        });
 
+        findViewById(R.id.btn_loading).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoadingActivity.startActivity(view.getContext());
+            }
+        });
+
+        findViewById(R.id.btn_header).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HeaderActivity.startActivity(view.getContext());
             }
         });
     }

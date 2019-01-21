@@ -15,10 +15,22 @@
     <Button
         android:id="@+id/btn_mul"
         android:layout_marginTop="16dp"
-        android:text="多布局"
+        android:text="多个item布局情况"
         android:layout_width="168dp"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/btn_loading"
+        android:layout_marginTop="16dp"
+        android:text="加载中布局"
+        android:layout_width="168dp"
+        android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/btn_header"
+        android:layout_marginTop="16dp"
+        android:text="添加header"
+        android:layout_width="168dp"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

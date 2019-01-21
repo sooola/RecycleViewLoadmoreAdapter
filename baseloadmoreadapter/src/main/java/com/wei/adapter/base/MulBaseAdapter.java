@@ -1,44 +1,39 @@
-package com.wei.baseadapter.recycleviewloadmoreadapter.base;
+package com.wei.adapter.base;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.wei.baseadapter.recycleviewloadmoreadapter.ViewHolder;
-import com.wei.baseadapter.recycleviewloadmoreadapter.interfaces.OnItemChildClickListener;
-import com.wei.baseadapter.recycleviewloadmoreadapter.interfaces.OnItemClickListener;
-
+import com.wei.adapter.ViewHolder;
+import com.wei.adapter.listener.OnItemChildClickListener;
+import com.wei.adapter.listener.OnMultiItemClickListeners;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by wei on 2018/10/25
  */
-public abstract class CommonBaseAdapter<T> extends BaseAdapter<T> {
+public abstract class MulBaseAdapter<T> extends BaseAdapter<T> {
 
-    private OnItemClickListener<T> mItemClickListener;
+    private OnMultiItemClickListeners<T> mItemClickListener;
+
     private ArrayList<Integer> mItemChildIds = new ArrayList<>();
     private ArrayList<OnItemChildClickListener<T>> mItemChildListeners = new ArrayList<>();
 
-    public CommonBaseAdapter(Context context, boolean isOpenLoadMore) {
-        super(context, isOpenLoadMore);
+    public MulBaseAdapter(Context context, List<T> datas, boolean isOpenLoadMore) {
+        super(context, datas, isOpenLoadMore);
     }
 
-    public CommonBaseAdapter(Context context, List<T> datas, boolean isOpenLoadMore) {
-        super(context, datas , isOpenLoadMore);
-    }
+    protected abstract void convert(ViewHolder holder, T data, int position, int viewType);
 
-    protected abstract void convert(ViewHolder holder, T data, int position);
-
-    protected abstract int getItemLayoutId();
+    protected abstract int getItemLayoutId(int viewType);
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (isCommonItemView(viewType)) {
-            return ViewHolder.create(mContext, getItemLayoutId(), parent);
+            return ViewHolder.create(mContext, getItemLayoutId(viewType), parent);
         }
         return super.onCreateViewHolder(parent, viewType);
     }
@@ -47,20 +42,19 @@ public abstract class CommonBaseAdapter<T> extends BaseAdapter<T> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int viewType = holder.getItemViewType();
         if (isCommonItemView(viewType)) {
-            bindCommonItem(holder, position - getHeaderCount());
+            bindCommonItem(holder, position - getHeaderCount(), viewType);
         }
     }
 
-
-    private void bindCommonItem(RecyclerView.ViewHolder holder, final int position) {
+    private void bindCommonItem(RecyclerView.ViewHolder holder, final int position, final int viewType) {
         final ViewHolder viewHolder = (ViewHolder) holder;
-        convert(viewHolder, getAllData().get(position), position);
+        convert(viewHolder, getAllData().get(position), position, viewType);
 
         viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mItemClickListener != null) {
-                    mItemClickListener.onItemClick(viewHolder, getAllData().get(position), position);
+                    mItemClickListener.onItemClick(viewHolder, getAllData().get(position), position, viewType);
                 }
             }
         });
@@ -78,12 +72,7 @@ public abstract class CommonBaseAdapter<T> extends BaseAdapter<T> {
         }
     }
 
-    @Override
-    protected int getViewType(int position, T data) {
-        return TYPE_COMMON_VIEW;
-    }
-
-    public void setOnItemClickListener(OnItemClickListener<T> itemClickListener) {
+    public void setOnMultiItemClickListener(OnMultiItemClickListeners<T> itemClickListener) {
         mItemClickListener = itemClickListener;
     }
 
