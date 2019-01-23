@@ -1,3 +1,3 @@
 # RecycleViewLoadmoreAdapter
-一个加载更多的adapter，封装简化adapter代码，参考大佬们的逻辑进行了部分修改
+一个加载更多的adapter，封装简化adapter代码，支持多item，参考大佬们的逻辑进行了部分修改
 
