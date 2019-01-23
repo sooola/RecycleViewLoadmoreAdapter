@@ -60,9 +60,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
     protected abstract int getViewType(int position, T data);
 
     public BaseAdapter(Context context, boolean isOpenLoadMore) {
-        mContext = context;
-        mDatas =  new ArrayList<T>();
-        this.isOpenLoadMore = isOpenLoadMore;
+        this(context ,null ,isOpenLoadMore);
     }
 
     public BaseAdapter(Context context, List<T> datas, boolean isOpenLoadMore) {

@@ -20,6 +20,14 @@ public abstract class CommonBaseAdapter<T> extends BaseAdapter<T> {
     private ArrayList<Integer> mItemChildIds = new ArrayList<>();
     private ArrayList<OnItemChildClickListener<T>> mItemChildListeners = new ArrayList<>();
 
+    public CommonBaseAdapter(Context context) {
+        super(context, true);
+    }
+
+    public CommonBaseAdapter(Context context ,List<T> datas) {
+        super(context, datas,true);
+    }
+
     public CommonBaseAdapter(Context context, boolean isOpenLoadMore) {
         super(context, isOpenLoadMore);
     }

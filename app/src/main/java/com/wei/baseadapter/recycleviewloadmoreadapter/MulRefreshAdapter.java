@@ -2,14 +2,14 @@ package com.wei.baseadapter.recycleviewloadmoreadapter;
 
 import android.content.Context;
 import com.wei.adapter.ViewHolder;
-import com.wei.adapter.base.MulBaseAdapter;
+import com.wei.adapter.base.MulCommonBaseAdapter;
 
 import java.util.List;
 
 /**
  * Created by wei on 2019/1/17.
  */
-public class MulRefreshAdapter extends MulBaseAdapter<String> {
+public class MulRefreshAdapter extends MulCommonBaseAdapter<String> {
 
     public MulRefreshAdapter(Context context, List<String> datas, boolean isOpenLoadMore) {
         super(context, datas, isOpenLoadMore);

@@ -35,7 +35,7 @@ public class LoadingActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleview);
         //初始化adapter
-        mAdapter = new CommonRefreshAdapter(this, null, true);
+        mAdapter = new CommonRefreshAdapter(this);
 
         //初始化EmptyView
         View emptyView = LayoutInflater.from(this).inflate(R.layout.empty_layout, (ViewGroup) mRecyclerView.getParent(), false);

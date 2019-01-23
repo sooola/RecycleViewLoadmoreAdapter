@@ -41,7 +41,7 @@ public class SingleActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleview);
 
         //初始化adapter
-        mAdapter = new CommonRefreshAdapter(this, null, true);
+        mAdapter = new CommonRefreshAdapter(this);
 
         mAdapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.empty_layout, (ViewGroup) mRecyclerView.getParent(), false));
         //设置加载更多触发的事件监听

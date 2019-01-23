@@ -46,7 +46,7 @@ public class MulExampleActivity extends AppCompatActivity {
         View emptyView = LayoutInflater.from(this).inflate(R.layout.empty_layout, (ViewGroup) mRecyclerView.getParent(), false);
         mAdapter.setEmptyView(emptyView);
 
-        //设置加载更多触发的事件监听
+        //设置加载更多触发的事件监听convert
         mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(boolean isReload) {

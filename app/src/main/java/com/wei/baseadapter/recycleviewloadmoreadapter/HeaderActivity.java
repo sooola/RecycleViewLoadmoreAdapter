@@ -39,7 +39,7 @@ public class HeaderActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleview);
 
         //初始化adapter
-        mAdapter = new CommonRefreshAdapter(this, null, true);
+        mAdapter = new CommonRefreshAdapter(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
