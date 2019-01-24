@@ -6,8 +6,7 @@
 1.单一布局item的情况
 继承CommonBaseAdapter
 
-···
-
+```
 public class CommonRefreshAdapter extends CommonBaseAdapter<String> {
 
     public CommonRefreshAdapter(Context context) {
@@ -26,8 +25,7 @@ public class CommonRefreshAdapter extends CommonBaseAdapter<String> {
     }
 }
 
-
-···
+```
 
 2.设置adapter  
 mAdapter = new CommonRefreshAdapter(this);  
