@@ -3,10 +3,11 @@
 
 
 #使用
-
-···
 1.单一布局item的情况
 继承CommonBaseAdapter
+
+···
+
 public class CommonRefreshAdapter extends CommonBaseAdapter<String> {
 
     public CommonRefreshAdapter(Context context) {
@@ -24,7 +25,10 @@ public class CommonRefreshAdapter extends CommonBaseAdapter<String> {
         return R.layout.item_test;
     }
 }
-2.设置adapter
-mAdapter = new CommonRefreshAdapter(this);
-mRecyclerView.setAdapter(mAdapter);
+
+
 ···
+
+2.设置adapter  
+mAdapter = new CommonRefreshAdapter(this);  
+mRecyclerView.setAdapter(mAdapter);  
