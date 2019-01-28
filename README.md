@@ -75,7 +75,7 @@ public class MulRefreshAdapter extends MulCommonBaseAdapter<String> {
 
 ```
 
-效果图
+效果图   
 ![image](https://github.com/sooola/RecycleViewLoadmoreAdapter/blob/master/screenshots/listmul.png)
 
 ### 添加头部，尾部
@@ -95,6 +95,6 @@ mAdapter.addFooterView(t2);
 mAdapter.notifyDataSetChanged();
 ```
 
-效果图
+效果图   
 ![image](https://github.com/sooola/RecycleViewLoadmoreAdapter/blob/master/screenshots/head.png)
 
