@@ -8,7 +8,7 @@ api 'com.wei:BaseLoadmoreAdapter:1.0.0'
 
 # 使用
 ### 单一布局item的情况
-1.继承CommonBaseAdapter
+继承CommonBaseAdapter
 
 ```
 public class CommonRefreshAdapter extends CommonBaseAdapter<String> {
@@ -35,7 +35,7 @@ public class CommonRefreshAdapter extends CommonBaseAdapter<String> {
 
 
 ### 多样式item情况  
-1.继承MulCommonBaseAdapter
+继承MulCommonBaseAdapter
 
 getViewType 根据data的情况返回不用的item type  
 getItemLayoutId 根据不同的type返回布局
