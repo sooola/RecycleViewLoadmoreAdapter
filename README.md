@@ -98,3 +98,32 @@ mAdapter.notifyDataSetChanged();
 效果图   
 ![image](https://github.com/sooola/RecycleViewLoadmoreAdapter/blob/master/screenshots/head.png)
 
+##### 加载更多
+```
+在加载更多回调中添加数据
+mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+    @Override
+    public void onLoadMore(boolean isReload) {
+
+    }
+});
+```
+
+##### 添加loading中布局
+```
+在加载更多回调中添加数据
+View emptyView = LayoutInflater.from(this).inflate(R.layout.empty_layout, (ViewGroup) mRecyclerView.getParent(), false);
+mAdapter.setEmptyView(emptyView);
+```
+
+##### 添加没有数据布局
+```
+在加载更多回调中添加数据
+View nodataView = LayoutInflater.from(this).inflate(R.layout.nodata_layout, (ViewGroup) mRecyclerView.getParent(), false);
+mAdapter.setNodataView(nodataView);
+```
+
+### 感谢
+感谢大神们的付出，已上基于下面项目进行修改
+[https://github.com/hongyangAndroid/baseAdapter](https://github.com/hongyangAndroid/baseAdapter)  
+[https://github.com/SheHuan/RecyclerViewAdapter](https://github.com/SheHuan/RecyclerViewAdapter) 
