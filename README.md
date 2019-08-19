@@ -2,8 +2,18 @@
 一个加载更多的adapter，封装简化adapter代码，支持多item，参考大佬们的逻辑进行了部分修改
 
 # 引入  
+1.在根目录的build.gradle 
 ```
-api 'com.wei:BaseLoadmoreAdapter:1.0.0'
+allprojects {
+		repositories {
+			...
+			maven { url 'https://www.jitpack.io' }
+		}
+	}
+```
+2.在项目build.gradle 
+```
+implementation 'com.github.sooola:RecycleViewLoadmoreAdapter:1.0'
 ```
 
 # 使用
