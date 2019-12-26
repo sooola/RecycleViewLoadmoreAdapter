@@ -130,8 +130,7 @@ mAdapter.setEmptyView(emptyView);
 View nodataView = LayoutInflater.from(this).inflate(R.layout.nodata_layout, (ViewGroup) mRecyclerView.getParent(), false);
 mAdapter.setNodataView(nodataView);
 ```
-
-提供的使用示例 
+##### 提供的使用示例 
 ![image](https://github.com/sooola/RecycleViewLoadmoreAdapter/blob/master/screenshots/demo.png)
 
 ### 感谢
