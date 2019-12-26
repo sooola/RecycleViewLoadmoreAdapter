@@ -8,9 +8,9 @@ import com.wei.adapter.base.CommonBaseAdapter;
 /**
  * Created by wei on 2018/11/8
  */
-public class CommonRefreshAdapter extends CommonBaseAdapter<String> {
+public class CommonAdapter extends CommonBaseAdapter<String> {
 
-    public CommonRefreshAdapter(Context context) {
+    public CommonAdapter(Context context) {
         super(context);
     }
 

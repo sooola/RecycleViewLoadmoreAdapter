@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.wei.adapter.ViewHolder;
 import com.wei.adapter.base.CommonBaseAdapter;
 import com.wei.adapter.listener.OnItemClickListener;
@@ -36,12 +37,10 @@ public class SingleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//左侧添加一个默认的返回图标
-        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleview);
 
         //初始化adapter
-        mAdapter = new CommonRefreshAdapter(this);
+        mAdapter = new CommonAdapter(this);
 
         mAdapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.empty_layout, (ViewGroup) mRecyclerView.getParent(), false));
         //设置加载更多触发的事件监听

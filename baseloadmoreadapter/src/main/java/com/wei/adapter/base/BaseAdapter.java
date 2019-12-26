@@ -48,7 +48,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
     private View mLoadFailedView; //分页加载失败view
     private View mLoadEndView; //分页加载结束view
     private View mEmptyView; //首次预加载view
-    private View mReloadView; //首次预加载失败、或无数据的view
+    private View mNodataView; //首次预加载失败、或无数据的view
     private RelativeLayout mFooterLayout;//FooterView
 
     private boolean isReset;//开始重新加载数据
@@ -92,7 +92,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
                 viewHolder = ViewHolder.create(new View(mContext));
                 break;
             case TYPE_RELOAD_VIEW:
-                viewHolder = ViewHolder.create(mReloadView);
+                viewHolder = ViewHolder.create(mNodataView);
                 break;
         }
         return viewHolder;
@@ -100,7 +100,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemCount() {
-        if (mDatas.isEmpty() && (mEmptyView != null || mReloadView != null)) {
+        if (mDatas.isEmpty() && (mEmptyView != null || mNodataView != null)) {
             return 1;
         }
         return mDatas.size() + getFooterViewCount() + getHeaderCount();
@@ -120,7 +120,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
                 return TYPE_EMPTY_VIEW;
             }
 
-            if (mReloadView != null) {
+            if (mNodataView != null) {
                 return TYPE_RELOAD_VIEW;
             }
 
@@ -178,7 +178,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public void setNodataView(View reloadView) {
-        mReloadView = reloadView;
+        mNodataView = reloadView;
     }
 
     /**
@@ -193,7 +193,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
      * 移除emptyView
      */
     public void removeNodataView() {
-        mReloadView = null;
+        mNodataView = null;
         notifyDataSetChanged();
     }
 
@@ -394,7 +394,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (findLastVisibleItemPosition(layoutManager) + 1 == getItemCount()) {
-                    if (mEmptyView != null || mReloadView != null
+                    if (mEmptyView != null || mNodataView != null
                             || (mHeaderViews.size() > 0 && showHeaderView && mDatas.isEmpty())) {
                         return;
                     }
@@ -477,7 +477,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
                 }
                 isLoading = false;
                 mEmptyView = null;
-                mReloadView = null;
+                mNodataView = null;
             }
             mDatas.clear();
             mDatas.addAll(datas);
@@ -498,7 +498,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
                 }
                 isLoading = false;
                 mEmptyView = null;
-                mReloadView = null;
+                mNodataView = null;
             }
             mDatas.clear();
             mDatas.addAll(datas);
