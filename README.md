@@ -13,7 +13,7 @@ allprojects {
 ```
 2.在项目build.gradle 
 ```
-implementation 'com.github.sooola:RecycleViewLoadmoreAdapter:1.0'
+implementation 'com.github.sooola:RecycleViewLoadmoreAdapter:1.1'
 ```
 
 # 使用
