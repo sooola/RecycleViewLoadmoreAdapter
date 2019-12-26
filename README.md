@@ -131,6 +131,9 @@ View nodataView = LayoutInflater.from(this).inflate(R.layout.nodata_layout, (Vie
 mAdapter.setNodataView(nodataView);
 ```
 
+提供的使用示例 
+![image](https://github.com/sooola/RecycleViewLoadmoreAdapter/blob/master/screenshots/demo.png)
+
 ### 感谢
 感谢大神们的付出，已上基于下面项目进行修改  
 [https://github.com/hongyangAndroid/baseAdapter](https://github.com/hongyangAndroid/baseAdapter)    
