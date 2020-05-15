@@ -5,9 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.wei.adapter.ViewHolder;
 import com.wei.adapter.listener.OnItemChildClickListener;
 import com.wei.adapter.listener.OnItemClickListener;
+import com.wei.adapter.listener.OnItemLongClickListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +20,7 @@ import java.util.List;
 public abstract class CommonBaseAdapter<T> extends BaseAdapter<T> {
 
     private OnItemClickListener<T> mItemClickListener;
+    private OnItemLongClickListener<T> mItemLongClickListener;
     private ArrayList<Integer> mItemChildIds = new ArrayList<>();
     private ArrayList<OnItemChildClickListener<T>> mItemChildListeners = new ArrayList<>();
 
@@ -70,6 +74,16 @@ public abstract class CommonBaseAdapter<T> extends BaseAdapter<T> {
             }
         });
 
+        viewHolder.getConvertView().setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (mItemLongClickListener != null) {
+                    mItemLongClickListener.onItemClick(viewHolder, getAllData().get(position), position);
+                }
+                return false;
+            }
+        });
+
         for (int i = 0; i < mItemChildIds.size(); i++) {
             final int tempI = i;
             if (viewHolder.getConvertView().findViewById(mItemChildIds.get(i)) != null) {
@@ -90,6 +104,10 @@ public abstract class CommonBaseAdapter<T> extends BaseAdapter<T> {
 
     public void setOnItemClickListener(OnItemClickListener<T> itemClickListener) {
         mItemClickListener = itemClickListener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener<T> onItemLongClickListener) {
+        mItemLongClickListener = onItemLongClickListener;
     }
 
     public void setOnItemChildClickListener(int viewId, OnItemChildClickListener<T> itemChildClickListener) {
