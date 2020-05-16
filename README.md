@@ -1,5 +1,5 @@
 # RecycleViewLoadmoreAdapter
-一个加载更多的adapter，封装简化adapter代码，支持多item，参考大佬们的逻辑进行了部分修改
+到底部自动加载更多的adapter，封装简化adapter代码，支持多样式item布局
 
 # 引入  
 1.在根目录的build.gradle 
@@ -13,7 +13,7 @@ allprojects {
 ```
 2.在项目build.gradle 
 ```
-implementation 'com.github.sooola:RecycleViewLoadmoreAdapter:1.0'
+implementation 'com.github.sooola:RecycleViewLoadmoreAdapter:1.1'
 ```
 
 # 使用
@@ -130,6 +130,8 @@ mAdapter.setEmptyView(emptyView);
 View nodataView = LayoutInflater.from(this).inflate(R.layout.nodata_layout, (ViewGroup) mRecyclerView.getParent(), false);
 mAdapter.setNodataView(nodataView);
 ```
+##### 提供的使用示例 
+![image](https://github.com/sooola/RecycleViewLoadmoreAdapter/blob/master/screenshots/demo.png)
 
 ### 感谢
 感谢大神们的付出，已上基于下面项目进行修改  
